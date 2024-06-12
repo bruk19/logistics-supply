@@ -1,39 +1,42 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.24;
+
 contract LogisticSupply {
-  address public owner;
-  uint256 public medCount = 0;
-  uint256 public rawMatCount = 0;
-  uint256 public manuCount = 0;
-  uint256 public distCount = 0;
-  uint256 public retailCount = 0;
+    address public owner;
+    uint256 public medCount = 0;
+    uint256 public rawMatCount = 0;
+    uint256 public manuCount = 0;
+    uint256 public distCount = 0;
+    uint256 public retailCount = 0;
 
-  constructor() {
-    owner = msg.sender;
-  }
+    constructor() {
+        owner = msg.sender;
+    }
 
-  modifier onlyOwner(){
-    require(owner==msg.sender, "You are not the owner");
-    _;
-  }
+    modifier onlyOwner() {
+        require(owner == msg.sender, "You are not the owner");
+        _;
+    }
 
-  enum STAGE {
-    Init,
-    RawMaterialSupply,
-    Manufacture,
-    Distribution,
-    Retail,
-    Sold
-  }
+    enum STAGE {
+        Init,
+        RawMaterialSupply,
+        Manufacture,
+        Distribution,
+        Retail,
+        Sold
+    }
 
-  struct medicine {
-    uint256 id;
-    string name;
-    string discription;
-    uint256 RMSid;
-    uint256 MANid;
-    uint256 DISTid;
-    uint256 RTLid;
-    STAGE stage;
-  }
+    struct medicine {
+        uint256 id;
+        string name;
+        string discription;
+        uint256 RMSid;
+        uint256 MANid;
+        uint256 DISTid;
+        uint256 RTLid;
+        STAGE stage;
+    }
+    mapping(uint256 => medicine) public medicineInfo;
+    
 }
