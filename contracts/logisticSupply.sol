@@ -11,4 +11,9 @@ contract LogisticSupply {
   constructor() {
     owner = msg.sender;
   }
+
+  modifier onlyOwner(){
+    require(owner==msg.sender, "You are not the owner");
+    _;
+  }
 }
