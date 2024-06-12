@@ -56,4 +56,11 @@ contract LogisticSupply {
             return "Medicine is Sold";
         }
     }
+
+    struct rawMaterial {
+      uint256 id;
+      string name;
+      address _addr;
+      string place;
+    }
 }
