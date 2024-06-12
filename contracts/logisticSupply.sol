@@ -63,4 +63,14 @@ contract LogisticSupply {
       address _addr;
       string place;
     }
+    mapping(uint256 => rawMaterial) public RMS;
+
+     struct manufacture {
+      uint256 id;
+      string name;
+      address _addr;
+      string place;
+    }
+    mapping(uint256 => rawMaterial) public MAN;
+
 }
