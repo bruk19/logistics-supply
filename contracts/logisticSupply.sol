@@ -2,11 +2,11 @@
 pragma solidity ^0.8.24;
 contract LogisticSupply {
   address public owner;
-  uint public medCount = 0;
-  uint public rawMatCount = 0;
-  uint public manuCount = 0;
-  uint public distCount = 0;
-  uint public retailCount = 0;
+  uint256 public medCount = 0;
+  uint256 public rawMatCount = 0;
+  uint256 public manuCount = 0;
+  uint256 public distCount = 0;
+  uint256 public retailCount = 0;
 
   constructor() {
     owner = msg.sender;
@@ -24,5 +24,16 @@ contract LogisticSupply {
     Distribution,
     Retail,
     Sold
+  }
+
+  struct medicine {
+    uint256 id;
+    string name;
+    string discription;
+    uint256 RMSid;
+    uint256 MANid;
+    uint256 DISTid;
+    uint256 RTLid;
+    STAGE stage;
   }
 }
