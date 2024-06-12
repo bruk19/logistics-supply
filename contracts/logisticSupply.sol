@@ -16,4 +16,13 @@ contract LogisticSupply {
     require(owner==msg.sender, "You are not the owner");
     _;
   }
+
+  enum STAGE {
+    Init,
+    RawMaterialSupply,
+    Manufacture,
+    Distribution,
+    Retail,
+    Sold
+  }
 }
