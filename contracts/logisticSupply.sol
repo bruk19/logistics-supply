@@ -38,5 +38,22 @@ contract LogisticSupply {
         STAGE stage;
     }
     mapping(uint256 => medicine) public medicineInfo;
-    
+
+    function showStage(uint _medicineId) public view returns (string memory) {
+        require(medCount > 0, "No medine found");
+        medicine storage medice = medicineInfo[_medicineId];
+        if (medice.stage == STAGE.Init) {
+            return "Medicine Ordered";
+        } else if (medice.stage == STAGE.RawMaterialSupply) {
+            return "Medicine on Raw Material Supply Stage";
+        } else if (medice.stage == STAGE.Manufacture) {
+            return "Medicine on Manufacture Stage";
+        } else if (medice.stage == STAGE.Distribution) {
+            return "Medicine on Distribution Stage";
+        } else if (medice.stage == STAGE.Retail) {
+            return "Medicine on Retail Stage";
+        } else if (medice.stage == STAGE.Sold) {
+            return "Medicine is Sold";
+        }
+    }
 }
