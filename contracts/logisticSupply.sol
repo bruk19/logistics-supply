@@ -73,11 +73,19 @@ contract LogisticSupply {
     }
     mapping(uint256 => rawMaterial) public MAN;
 
-    struct distribution{
+    struct distribution {
         uint256 id;
         string name;
         address _addr;
         string place;
     }
     mapping(uint256 => rawMaterial) public DST;
+
+    struct retail {
+        uint id;
+        string name;
+        address _addr;
+        string place;
+    }
+    mapping(uint => retail) public RTL;
 }
