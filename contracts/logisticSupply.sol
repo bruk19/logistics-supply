@@ -98,4 +98,9 @@ contract LogisticSupply {
       manuCount++;
       RMS[manuCount] = rawMaterial(manuCount, _name, _addresss, _place);
     }
+
+    function addDST(string memory _name, address _addresss, string memory _place) public onlyOwner() {
+      distCount++;
+      RMS[distCount] = rawMaterial(distCount, _name, _addresss, _place);
+    }
 }
