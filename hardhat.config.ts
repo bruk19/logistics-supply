@@ -22,6 +22,24 @@ const config: HardhatUserConfig = {
       chainId: 31377,
     }
   }, 
+  etherscan: {
+    apiKey: ETHERSCAN_API_KEY,
+  },
+   namedAccounts: {
+    owner: {
+      default: 0,
+    },
+  },
+   paths: {
+    sources: "./contracts",
+    tests: "./test",
+  },
+  mocha: {
+    timeout: 40000,
+  },
+  sourcify: {
+  enabled: true
+}
 };
 
 export default config;
