@@ -156,7 +156,7 @@ contract LogisticSupply {
     }
 
     function MANSupply(uint256 _medicineId) public {
-        require(_medicineId <= rawMatCount);
+        require(_medicineId <= medCount);
         uint _id = findRMS(msg.sender);
         require(_id > 0);
         require(medicineInfo[_medicineId].stage == STAGE.RawMaterialSupply);
@@ -176,7 +176,7 @@ contract LogisticSupply {
     }
 
     function DSTSupply(uint256 _medicineId) public {
-        require(_medicineId <= manuCount);
+        require(_medicineId <= medCount);
         uint _id = findDST(msg.sender);
         require(_id > 0);
         require(medicineInfo[_medicineId].stage == STAGE.Manufacture);
@@ -196,12 +196,22 @@ contract LogisticSupply {
     }
 
     function RTLSupply(uint256 _medicineId) public {
-        require(_medicineId <= distCount);
+        require(_medicineId <= medCount);
         uint _id = findRTL(msg.sender);
         require(_id > 0);
         require(medicineInfo[_medicineId].stage == STAGE.Distribution);
 
         medicineInfo[_medicineId].RTLid = _id;
         medicineInfo[_medicineId].stage = STAGE.Retail;
+    }
+
+    function sold(uint _medicineId) public {
+        require(_medicineId>0 && _medicineId <= medCount);
+        uint _id = findRTL(msg.sender);
+        require(_id>0);
+        require(medicineInfo[_medicineId].stage == STAGE.Retail);
+        require(medicineInfo[_medicineId].RTLid == _id);
+
+        medicineInfo[_medicineId].stage = STAGE.Sold;
     }
 }
