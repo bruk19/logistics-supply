@@ -133,4 +133,14 @@ contract LogisticSupply {
             }
         }
     }
+
+    function RMSupply(uint256 _medicineId) public {
+        require(_medicineId <= medCount);
+        uint _id = findRMS(msg.sender);
+        require(_id > 0);
+        require(medicineInfo[_medicineId].stage == STAGE.Init);
+
+        medicineInfo[_medicineId].RMSid = _id;
+        medicineInfo[_medicineId].stage = STAGE.RawMaterialSupply;
+    }
 }
