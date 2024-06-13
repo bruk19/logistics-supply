@@ -88,4 +88,9 @@ contract LogisticSupply {
         string place;
     }
     mapping(uint => retail) public RTL;
+
+    function addRMS(string memory _name, address _addresss, string memory _place) public onlyOwner() {
+      rawMatCount++;
+      RMS[rawMatCount] = rawMaterial(rawMatCount, _name, _addresss, _place);
+    }
 }
