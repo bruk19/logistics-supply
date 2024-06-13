@@ -146,10 +146,10 @@ contract LogisticSupply {
     }
 
     function findMAN(address _address) public view returns (uint256) {
-        require(manuCount > 0, "No retailer found");
+        require(manuCount > 0, "No Manufacture found");
         for (uint256 i = 0; i < manuCount; i++) {
             if (MAN[i]._addr == _address) {
-                return RMS[i].id;
+                return MAN[i].id;
             }
         }
         return 0;
@@ -161,7 +161,17 @@ contract LogisticSupply {
         require(_id > 0);
         require(medicineInfo[_medicineId].stage == STAGE.RawMaterialSupply);
 
-        medicineInfo[_medicineId].RMSid = _id;
+        medicineInfo[_medicineId].MANid = _id;
         medicineInfo[_medicineId].stage = STAGE.Manufacture;
+    }
+
+    function findDST(address _address) public view returns (uint256) {
+        require(manuCount > 0, "No Distributor found");
+        for (uint256 i = 0; i < distCount; i++) {
+            if (DST[i]._addr == _address) {
+                return DST[i].id;
+            }
+        }
+        return 0;
     }
 }
