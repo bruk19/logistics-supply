@@ -124,4 +124,13 @@ contract LogisticSupply {
         retailCount++;
         RMS[retailCount] = rawMaterial(retailCount, _name, _addresss, _place);
     }
+
+    function findRMS(address _address) public view returns (uint256) {
+        require(rawMatCount > 0, "No retailer found");
+        for (uint256 i = 0; i < rawMatCount; i++) {
+            if (RMS[i]._addr == _address) {
+                return RMS[i].id;
+            }
+        }
+    }
 }
