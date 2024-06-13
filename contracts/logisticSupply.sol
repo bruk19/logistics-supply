@@ -184,4 +184,14 @@ contract LogisticSupply {
         medicineInfo[_medicineId].DISTid = _id;
         medicineInfo[_medicineId].stage = STAGE.Distribution;
     }
+
+    function findRTL(address _address) public view returns (uint256) {
+        require(manuCount > 0, "No Retailer found");
+        for (uint256 i = 0; i < distCount; i++) {
+            if (RTL[i]._addr == _address) {
+                return RTL[i].id;
+            }
+        }
+        return 0;
+    }
 }
