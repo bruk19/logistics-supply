@@ -174,4 +174,14 @@ contract LogisticSupply {
         }
         return 0;
     }
+
+    function DSTupply(uint256 _medicineId) public {
+        require(_medicineId <= rawMatCount);
+        uint _id = findDST(msg.sender);
+        require(_id > 0);
+        require(medicineInfo[_medicineId].stage == STAGE.Manufacture);
+
+        medicineInfo[_medicineId].DISTid = _id;
+        medicineInfo[_medicineId].stage = STAGE.Distribution;
+    }
 }
