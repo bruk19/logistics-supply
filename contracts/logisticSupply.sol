@@ -132,6 +132,7 @@ contract LogisticSupply {
                 return RMS[i].id;
             }
         }
+        return 0;
     }
 
     function RMSupply(uint256 _medicineId) public {
@@ -142,5 +143,15 @@ contract LogisticSupply {
 
         medicineInfo[_medicineId].RMSid = _id;
         medicineInfo[_medicineId].stage = STAGE.RawMaterialSupply;
+    }
+
+    function findMAN(address _address) public view returns (uint256) {
+        require(manuCount > 0, "No retailer found");
+        for (uint256 i = 0; i < manuCount; i++) {
+            if (MAN[i]._addr == _address) {
+                return RMS[i].id;
+            }
+        }
+        return 0;
     }
 }
