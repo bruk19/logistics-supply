@@ -93,4 +93,9 @@ contract LogisticSupply {
       rawMatCount++;
       RMS[rawMatCount] = rawMaterial(rawMatCount, _name, _addresss, _place);
     }
+
+    function addMAN(string memory _name, address _addresss, string memory _place) public onlyOwner() {
+      manuCount++;
+      RMS[manuCount] = rawMaterial(manuCount, _name, _addresss, _place);
+    }
 }
