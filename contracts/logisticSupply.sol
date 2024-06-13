@@ -127,7 +127,7 @@ contract LogisticSupply {
 
     function findRMS(address _address) public view returns (uint256) {
         require(rawMatCount > 0, "No retailer found");
-        for (uint256 i = 0; i < rawMatCount; i++) {
+        for (uint256 i = 0; i <= rawMatCount; i++) {
             if (RMS[i]._addr == _address) {
                 return RMS[i].id;
             }
@@ -147,7 +147,7 @@ contract LogisticSupply {
 
     function findMAN(address _address) public view returns (uint256) {
         require(manuCount > 0, "No Manufacture found");
-        for (uint256 i = 0; i < manuCount; i++) {
+        for (uint256 i = 0; i <= manuCount; i++) {
             if (MAN[i]._addr == _address) {
                 return MAN[i].id;
             }
@@ -167,7 +167,7 @@ contract LogisticSupply {
 
     function findDST(address _address) public view returns (uint256) {
         require(manuCount > 0, "No Distributor found");
-        for (uint256 i = 0; i < distCount; i++) {
+        for (uint256 i = 0; i <= distCount; i++) {
             if (DST[i]._addr == _address) {
                 return DST[i].id;
             }
@@ -187,7 +187,7 @@ contract LogisticSupply {
 
     function findRTL(address _address) public view returns (uint256) {
         require(manuCount > 0, "No Retailer found");
-        for (uint256 i = 0; i < distCount; i++) {
+        for (uint256 i = 0; i <= distCount; i++) {
             if (RTL[i]._addr == _address) {
                 return RTL[i].id;
             }
