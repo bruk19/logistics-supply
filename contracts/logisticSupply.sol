@@ -125,7 +125,7 @@ contract LogisticSupply {
         RMS[retailCount] = rawMaterial(retailCount, _name, _addresss, _place);
     }
 
-    function findRMS(address _address) public view returns (uint256) {
+    function findRMS(address _address) private view returns (uint256) {
         require(rawMatCount > 0, "No retailer found");
         for (uint256 i = 0; i <= rawMatCount; i++) {
             if (RMS[i]._addr == _address) {
@@ -136,16 +136,19 @@ contract LogisticSupply {
     }
 
     function RMSupply(uint256 _medicineId) public {
-        require(_medicineId <= medCount);
+        require(_medicineId <= medCount, "No medicine created with this Id");
         uint _id = findRMS(msg.sender);
-        require(_id > 0);
-        require(medicineInfo[_medicineId].stage == STAGE.Init);
+        require(_id > 0, "Medicine Id not found");
+        require(
+            medicineInfo[_medicineId].stage == STAGE.Init,
+            "Incorrect medicine stage"
+        );
 
         medicineInfo[_medicineId].RMSid = _id;
         medicineInfo[_medicineId].stage = STAGE.RawMaterialSupply;
     }
 
-    function findMAN(address _address) public view returns (uint256) {
+    function findMAN(address _address) private view returns (uint256) {
         require(manuCount > 0, "No Manufacture found");
         for (uint256 i = 0; i <= manuCount; i++) {
             if (MAN[i]._addr == _address) {
@@ -156,16 +159,19 @@ contract LogisticSupply {
     }
 
     function MANSupply(uint256 _medicineId) public {
-        require(_medicineId <= medCount);
+        require(_medicineId <= medCount, "No medicine created with this Id");
         uint _id = findRMS(msg.sender);
-        require(_id > 0);
-        require(medicineInfo[_medicineId].stage == STAGE.RawMaterialSupply);
+        require(_id > 0, "Medicine Id not found");
+        require(
+            medicineInfo[_medicineId].stage == STAGE.RawMaterialSupply,
+            "Incorrect medicine stage"
+        );
 
         medicineInfo[_medicineId].MANid = _id;
         medicineInfo[_medicineId].stage = STAGE.Manufacture;
     }
 
-    function findDST(address _address) public view returns (uint256) {
+    function findDST(address _address) private view returns (uint256) {
         require(manuCount > 0, "No Distributor found");
         for (uint256 i = 0; i <= distCount; i++) {
             if (DST[i]._addr == _address) {
@@ -176,16 +182,19 @@ contract LogisticSupply {
     }
 
     function DSTSupply(uint256 _medicineId) public {
-        require(_medicineId <= medCount);
+        require(_medicineId <= medCount, "No medicine created with this Id");
         uint _id = findDST(msg.sender);
-        require(_id > 0);
-        require(medicineInfo[_medicineId].stage == STAGE.Manufacture);
+        require(_id > 0, "Medicine Id not found");
+        require(
+            medicineInfo[_medicineId].stage == STAGE.Manufacture,
+            "Incorrect medicine stage"
+        );
 
         medicineInfo[_medicineId].DISTid = _id;
         medicineInfo[_medicineId].stage = STAGE.Distribution;
     }
 
-    function findRTL(address _address) public view returns (uint256) {
+    function findRTL(address _address) private view returns (uint256) {
         require(manuCount > 0, "No Retailer found");
         for (uint256 i = 0; i <= distCount; i++) {
             if (RTL[i]._addr == _address) {
@@ -196,28 +205,44 @@ contract LogisticSupply {
     }
 
     function RTLSupply(uint256 _medicineId) public {
-        require(_medicineId <= medCount);
+        require(_medicineId <= medCount, "No medicine created with this Id");
         uint _id = findRTL(msg.sender);
-        require(_id > 0);
-        require(medicineInfo[_medicineId].stage == STAGE.Distribution);
+        require(_id > 0, "Medicine Id not found");
+        require(
+            medicineInfo[_medicineId].stage == STAGE.Distribution,
+            "Incorrect medicine stage"
+        );
 
         medicineInfo[_medicineId].RTLid = _id;
         medicineInfo[_medicineId].stage = STAGE.Retail;
     }
 
     function sold(uint _medicineId) public {
-        require(_medicineId > 0 && _medicineId <= medCount);
+        require(
+            _medicineId > 0 && _medicineId <= medCount,
+            "No medicine created with this Id"
+        );
         uint _id = findRTL(msg.sender);
-        require(_id > 0);
-        require(medicineInfo[_medicineId].stage == STAGE.Retail);
-        require(medicineInfo[_medicineId].RTLid == _id);
+        require(_id > 0, "Medicine Id not found");
+        require(
+            medicineInfo[_medicineId].stage == STAGE.Retail,
+            "Incorrect medicine stage"
+        );
+        require(
+            medicineInfo[_medicineId].RTLid == _id,
+            "Medicine stage should be on retailer stage"
+        );
 
         medicineInfo[_medicineId].stage = STAGE.Sold;
     }
 
     function addMedicine(string memory name, string memory discription) public {
         require(
-            rawMatCount > 0 && distCount > 0 && manuCount > 0 && retailCount > 0
+            rawMatCount > 0 &&
+                distCount > 0 &&
+                manuCount > 0 &&
+                retailCount > 0,
+            "Please check raw material suplier, distributor, manufacture and retailer already found"
         );
         medCount++;
         medicineInfo[medCount] = medicine(
