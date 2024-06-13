@@ -206,12 +206,29 @@ contract LogisticSupply {
     }
 
     function sold(uint _medicineId) public {
-        require(_medicineId>0 && _medicineId <= medCount);
+        require(_medicineId > 0 && _medicineId <= medCount);
         uint _id = findRTL(msg.sender);
-        require(_id>0);
+        require(_id > 0);
         require(medicineInfo[_medicineId].stage == STAGE.Retail);
         require(medicineInfo[_medicineId].RTLid == _id);
 
         medicineInfo[_medicineId].stage = STAGE.Sold;
+    }
+
+    function addMedicine(string memory name, string memory discription) public {
+        require(
+            rawMatCount > 0 && distCount > 0 && manuCount > 0 && retailCount > 0
+        );
+        medCount++;
+        medicineInfo[medCount] = medicine(
+            medCount,
+            name,
+            discription,
+            0,
+            0,
+            0,
+            0,
+            STAGE.Init
+        );
     }
 }
