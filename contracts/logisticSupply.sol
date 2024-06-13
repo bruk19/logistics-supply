@@ -89,18 +89,39 @@ contract LogisticSupply {
     }
     mapping(uint => retail) public RTL;
 
-    function addRMS(string memory _name, address _addresss, string memory _place) public onlyOwner() {
-      rawMatCount++;
-      RMS[rawMatCount] = rawMaterial(rawMatCount, _name, _addresss, _place);
+    function addRMS(
+        string memory _name,
+        address _addresss,
+        string memory _place
+    ) public onlyOwner {
+        rawMatCount++;
+        RMS[rawMatCount] = rawMaterial(rawMatCount, _name, _addresss, _place);
     }
 
-    function addMAN(string memory _name, address _addresss, string memory _place) public onlyOwner() {
-      manuCount++;
-      RMS[manuCount] = rawMaterial(manuCount, _name, _addresss, _place);
+    function addMAN(
+        string memory _name,
+        address _addresss,
+        string memory _place
+    ) public onlyOwner {
+        manuCount++;
+        RMS[manuCount] = rawMaterial(manuCount, _name, _addresss, _place);
     }
 
-    function addDST(string memory _name, address _addresss, string memory _place) public onlyOwner() {
-      distCount++;
-      RMS[distCount] = rawMaterial(distCount, _name, _addresss, _place);
+    function addDST(
+        string memory _name,
+        address _addresss,
+        string memory _place
+    ) public onlyOwner {
+        distCount++;
+        RMS[distCount] = rawMaterial(distCount, _name, _addresss, _place);
+    }
+
+    function addRTL(
+        string memory _name,
+        address _addresss,
+        string memory _place
+    ) public onlyOwner {
+        retailCount++;
+        RMS[retailCount] = rawMaterial(retailCount, _name, _addresss, _place);
     }
 }
