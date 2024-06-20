@@ -71,15 +71,15 @@ contract LogisticSupply {
         address _addr;
         string place;
     }
-    mapping(uint256 => rawMaterial) public MAN;
+    mapping(uint256 => manufacture) public MAN;
 
-    struct distribution {
+    struct distributor {
         uint256 id;
         string name;
         address _addr;
         string place;
     }
-    mapping(uint256 => rawMaterial) public DST;
+    mapping(uint256 => distributor) public DST;
 
     struct retail {
         uint id;
@@ -104,7 +104,7 @@ contract LogisticSupply {
         string memory _place
     ) public onlyOwner {
         manuCount++;
-        RMS[manuCount] = rawMaterial(manuCount, _name, _addresss, _place);
+        MAN[manuCount] = manufacture(manuCount, _name, _addresss, _place);
     }
 
     function addDST(
@@ -113,7 +113,7 @@ contract LogisticSupply {
         string memory _place
     ) public onlyOwner {
         distCount++;
-        RMS[distCount] = rawMaterial(distCount, _name, _addresss, _place);
+        DST[distCount] = distributor(distCount, _name, _addresss, _place);
     }
 
     function addRTL(
@@ -122,7 +122,7 @@ contract LogisticSupply {
         string memory _place
     ) public onlyOwner {
         retailCount++;
-        RMS[retailCount] = rawMaterial(retailCount, _name, _addresss, _place);
+        RTL[retailCount] = retail(retailCount, _name, _addresss, _place);
     }
 
     function findRMS(address _address) private view returns (uint256) {
