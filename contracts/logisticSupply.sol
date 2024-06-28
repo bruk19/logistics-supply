@@ -43,17 +43,17 @@ contract LogisticSupply {
         require(medCount > 0, "No medine found");
         medicine storage medice = medicineInfo[_medicineId];
         if (medice.stage == STAGE.Init) {
-            return "Medicine Ordered";
+            return "Product Ordered";
         } else if (medice.stage == STAGE.RawMaterialSupply) {
-            return "Medicine on Raw Material Supply Stage";
+            return "Product on Raw Material Supply Stage";
         } else if (medice.stage == STAGE.Manufacture) {
-            return "Medicine on Manufacture Stage";
+            return "Product on Manufacture Stage";
         } else if (medice.stage == STAGE.Distribution) {
-            return "Medicine on Distribution Stage";
+            return "Product on Distribution Stage";
         } else if (medice.stage == STAGE.Retail) {
-            return "Medicine on Retail Stage";
+            return "Product on Retail Stage";
         } else if (medice.stage == STAGE.Sold) {
-            return "Medicine is Sold";
+            return "Product is Sold";
         }
     }
 
@@ -71,15 +71,15 @@ contract LogisticSupply {
         address _addr;
         string place;
     }
-    mapping(uint256 => rawMaterial) public MAN;
+    mapping(uint256 => manufacture) public MAN;
 
-    struct distribution {
+    struct distributor {
         uint256 id;
         string name;
         address _addr;
         string place;
     }
-    mapping(uint256 => rawMaterial) public DST;
+    mapping(uint256 => distributor) public DST;
 
     struct retail {
         uint id;
@@ -104,7 +104,7 @@ contract LogisticSupply {
         string memory _place
     ) public onlyOwner {
         manuCount++;
-        RMS[manuCount] = rawMaterial(manuCount, _name, _addresss, _place);
+        MAN[manuCount] = manufacture(manuCount, _name, _addresss, _place);
     }
 
     function addDST(
@@ -113,7 +113,7 @@ contract LogisticSupply {
         string memory _place
     ) public onlyOwner {
         distCount++;
-        RMS[distCount] = rawMaterial(distCount, _name, _addresss, _place);
+        DST[distCount] = distributor(distCount, _name, _addresss, _place);
     }
 
     function addRTL(
@@ -122,7 +122,7 @@ contract LogisticSupply {
         string memory _place
     ) public onlyOwner {
         retailCount++;
-        RMS[retailCount] = rawMaterial(retailCount, _name, _addresss, _place);
+        RTL[retailCount] = retail(retailCount, _name, _addresss, _place);
     }
 
     function findRMS(address _address) private view returns (uint256) {
@@ -236,7 +236,7 @@ contract LogisticSupply {
         medicineInfo[_medicineId].stage = STAGE.Sold;
     }
 
-    function addMedicine(string memory name, string memory discription) public {
+    function addMedicine(string memory name, string memory discription) public onlyOwner {
         require(
             rawMatCount > 0 &&
                 distCount > 0 &&
