@@ -236,7 +236,7 @@ contract LogisticSupply {
         medicineInfo[_medicineId].stage = STAGE.Sold;
     }
 
-    function addMedicine(string memory name, string memory discription) public {
+    function addMedicine(string memory name, string memory discription) public onlyOwner {
         require(
             rawMatCount > 0 &&
                 distCount > 0 &&
